@@ -6,6 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 /**
@@ -13,10 +15,15 @@ import org.testng.annotations.Test;
  */
 
 public class FirstTest {
+  WebDriver driver;
+
+  @BeforeClass
+  public void setUp() {
+    WebDriverManager.chromedriver().setup();
+    driver = new ChromeDriver();
+  }
   @Test
   public void loginTest() {
-    WebDriverManager.chromedriver().setup();
-    WebDriver driver = new ChromeDriver();
     driver.get("https://the-internet.herokuapp.com/");
 
     driver.findElement(By.linkText("Form Authentication")).click();
@@ -34,6 +41,10 @@ public class FirstTest {
     String text = driver.findElement(By.tagName("h2")).getText();
     Assert.assertEquals(text, "Secure Area", "User should be logged in");
 
+  }
+
+  @AfterClass(alwaysRun = true)
+  public void closeDriver() {
     driver.quit();
   }
 }
