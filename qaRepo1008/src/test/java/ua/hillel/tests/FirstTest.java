@@ -15,7 +15,7 @@ import org.testng.annotations.Test;
  */
 
 public class FirstTest {
-  WebDriver driver;
+  private WebDriver driver;
 
   @BeforeClass
   public void setUp() {
